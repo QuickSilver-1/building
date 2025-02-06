@@ -1,0 +1,94 @@
+definitions:
+  domain.Building:
+    properties:
+      city:
+        description: Город, где находится здание
+        type: string
+      floor:
+        description: Количество этажей
+        type: string
+      id:
+        description: Уникальный идентификатор здания
+        type: integer
+      name:
+        description: Название здания
+        type: string
+      year:
+        description: Год постройки
+        type: string
+    type: object
+host: 89.46.131.181:8081
+info:
+  contact: {}
+  description: Тестовое задание для компании leadgen
+  title: Building API
+  version: 1.0.0
+paths:
+  /building:
+    get:
+      consumes:
+      - application/json
+      description: Get buildings by filters
+      parameters:
+      - description: Building ID
+        in: query
+        name: id
+        type: string
+      - description: Building name
+        in: query
+        name: name
+        type: string
+      - description: Building city
+        in: query
+        name: city
+        type: string
+      - description: Year of construction
+        in: query
+        name: year
+        type: string
+      - description: Number of floors
+        in: query
+        name: floor
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.Building'
+            type: array
+        "400":
+          description: Invalid input
+          schema:
+            type: string
+      summary: Get buildings
+      tags:
+      - buildings
+    post:
+      consumes:
+      - application/json
+      description: Create a new building with the provided details
+      parameters:
+      - description: Building
+        in: body
+        name: building
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Building'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: The building has been successfully created
+          schema:
+            type: string
+        "400":
+          description: Invalid input
+          schema:
+            type: string
+      summary: Create a new building
+      tags:
+      - buildings
+swagger: "2.0"
